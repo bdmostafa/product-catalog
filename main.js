@@ -26,14 +26,27 @@ UI.prototype.addProductToList = function ({
     console.log(name, price)
     ul.appendChild(li);
 }
+UI.prototype.clearField = function () {
+    document.getElementById('product-name').value = '';
+    document.getElementById('product-price').value = '';
+}
+UI.prototype.showAlert = function (message, className) {
+    const div = document.createElement('div');
+    div.className = `alert alert-${className}`;
+    div.textContent = message;
+    form.insertBefore(div, inputArea);
+    setTimeout(() => {
+        document.querySelector('.alert').remove();
+    }, 1000)
 
+}
 
 
 // Selectors
 const form = document.getElementById('form');
 
 const ul = document.getElementById('product-list');
-
+const inputArea = document.getElementById('input-area')
 
 
 
@@ -49,9 +62,10 @@ form.addEventListener('submit', e => {
     const ui = new UI();
     // Validation input fields
     if (productName === '' || productPrice === '') {
-        console.log(productName, productPrice)
+        ui.showAlert('Please add a product with price', 'warning');
     } else {
+        ui.showAlert('Your product has been added successfully!', 'success');
         ui.addProductToList(product);
-
+        ui.clearField();
     }
 })
