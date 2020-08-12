@@ -120,8 +120,9 @@ class UI {
         const searchText = e.target.value.toLowerCase();
         let itemLength = 0;
         document.querySelectorAll('.collection .collection-item').forEach(item => {
-            console.log(item)
+            // console.log(item)
             const productName = item.firstElementChild.textContent.toLowerCase();
+            // When keyup event is not matched, indexOf value is always -1
             if (productName.indexOf(searchText) === -1) {
                 item.parentElement.parentElement.style.display = 'none';
             } else {
