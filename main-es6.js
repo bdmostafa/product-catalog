@@ -39,7 +39,6 @@ class LocalStorage {
     static removeProductFromLocal(id) {
         const products = LocalStorage.getProductsFromLocal();
         products.forEach((product, index) => {
-            console.log('profile -id:', typeof product.id, 'current-id:', typeof id)
             if (product.id === id) {
                 products.splice(index, 1);
             }
@@ -59,10 +58,11 @@ class UI {
         price
     }) {
         const li = document.createElement('li');
+        li.classList.add('collection');
         // Creating HTML and hidden input element to track id (special identification)
         li.innerHTML = `
             <button class="product-btn btn btn-light container-fluid">
-                <div class="d-flex">
+                <div class="d-flex collection-item">
                     <a class="mr-auto"><span >${name}</span> - $<span>${price}</span></a>
                     <input type="hidden" data-id=${id} />
                     <i id="delete" class="fa fa-trash"></i>
@@ -116,6 +116,21 @@ class UI {
         // Length is the id when new product is added because it starts from 1 where array starts from 0
         return document.querySelectorAll('li').length;
     }
+    filterProduct(e) {
+        const searchText = e.target.value.toLowerCase();
+        let itemLength = 0;
+        document.querySelectorAll('.collection .collection-item').forEach(item => {
+            console.log(item)
+            const productName = item.firstElementChild.textContent.toLowerCase();
+            if (productName.indexOf(searchText) === -1) {
+                item.parentElement.parentElement.style.display = 'none';
+            } else {
+                item.parentElement.parentElement.style.display = 'block';
+                ++itemLength;
+            }
+        });
+        itemLength > 0 ? null : showAlert('Oops! No item found', 'danger');
+    };
 }
 
 
@@ -155,3 +170,8 @@ document.querySelector('#product-list').addEventListener('click', e => {
         ui.editProduct(e.target);
     }
 })
+
+document.querySelector('#search-btn').addEventListener('keyup', e => {
+    const ui = new UI();
+    ui.filterProduct(e);
+});
