@@ -108,6 +108,7 @@ class UI {
         div.className = `alert alert-${className}`;
         div.textContent = message;
         form.insertBefore(div, inputArea);
+        // Remove this message after 1 second
         setTimeout(() => {
             document.querySelector('.alert').remove();
         }, 1000)
@@ -118,19 +119,18 @@ class UI {
     }
     filterProduct(e) {
         const searchText = e.target.value.toLowerCase();
-        let itemLength = 0;
+        // let itemLength = 0;
         document.querySelectorAll('.collection .collection-item').forEach(item => {
-            // console.log(item)
             const productName = item.firstElementChild.textContent.toLowerCase();
             // When keyup event is not matched, indexOf value is always -1
             if (productName.indexOf(searchText) === -1) {
                 item.parentElement.parentElement.style.display = 'none';
             } else {
                 item.parentElement.parentElement.style.display = 'block';
-                ++itemLength;
+                // ++itemLength;
             }
         });
-        itemLength > 0 ? null : showAlert('Oops! No item found', 'danger');
+        // itemLength > 0 ? null : showAlert('Oops! No item found', 'danger');
     };
 }
 
