@@ -51,3 +51,21 @@ i {
 .product-btn {
     pointer-events: none;
 }
+
+footer {
+    min-height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+footer span a {
+    font-family: 'Lobster', cursive;
+    color: rgba(9, 30, 124, 0.932);
+    text-decoration: none;
+}
+
+footer span a:hover {
+    text-decoration: none;
+}
